@@ -66,6 +66,11 @@ CTRL + B + <index number of window>
 #example CTRL + B + 0 will change window as the very first window
 ```
 
+# Go to Previous Window
+```
+CTRL + B + L
+```
+
 # Renaming Windows
 In order to change current window, we can enter following command:
 ```
@@ -115,3 +120,88 @@ It'll show you available options like so:
 
 ### Killing session named 4
 ![[Pasted image 20220721193141.png]]
+
+# Copy Mode
+In copy mode you can search strings in terminal as you do in vi interface. In order to enable copy mode, we need to enter following keybinding:
+```keyboard
+CTRL + B + [
+```
+
+Also we need to specify another configuration to use copy-mode as we use vi. Enter this command into tmux.conf:
+```tmux.conf
+# Copy-mode key style
+setw -g mode-keys vi
+```
+
+* `/` : Search a string
+* `n`: Go to next found string
+* `N`: Go to previous found string
+
+# Customizing tmux
+The default configuration file of tmux is **tmux.conf**. This file contains some tmux commands that are executed whenever a tmux server starts. Tmux first look for this file in **/etc/tmux.conf**. If it can't find it, then it looks same file in home directory of user *(It's hidden here **.tmux.conf**)*.
+
+# Reloading Conf File
+After making changes we need to reload conf file as we source zshrc. And this is the command we're going to use for it:
+```bash
+tmux source ~/.tmux.conf
+```
+
+If you don't want to enter this command whenever you make changes on file, you can assign a key to do same thing. Open conf file and enter following:
+```tmux.conf
+# Reload tmux.conf file
+bind r source-file ~/.tmux.conf \; display-message "Config Reloaded!"
+```
+
+Now we can open tmux, and enter **PREFIX+r** to reload conf file. It'll also display a informative message.
+![[Pasted image 20220722104213.png]]
+
+# Unbinding and Binding Keys
+
+### Unbinding splitting panes 
+```tmux.conf
+# Pane Splitting (PREFIX + h|v)
+unbind '"'
+unbind %
+
+bind h split-window -h
+bind v split-window -v
+```
+
+Now in order to split pane horizontally, we need to enter **PREFIX + h**, and for vertically **PREFIX + v**.
+
+# Enable Mouse Scroll
+```tmux.conf
+# Enabling mouse mode
+set -g mouse on
+```
+
+After enabling this option, it'll automatically copy selected strings into clipboard.
+
+# Rename Window
+```tmux.conf
+# Rename Window (PREFIX + n)
+unbind ,
+bind n command-prompt -I "#W" "rename-window '%%'"
+```
+
+# Relocate Status Bar
+```tmux.conf
+# Location of Status Bar
+set-option -g status-position top
+```
+
+# Setting Base Indexes
+```tmux.conf
+# Setting base indexes to 1 instead of 0
+set -g base-index 1
+setw -g pane-base-index 1
+```
+
+# Changing Style of Status Bar
+```tmux.conf
+# Changing background color to black and font color to red
+set-option -g status-style bg=black,fg=red
+```
+
+##### Other configurations that I've made can be found on local tmux.conf file or you can visit this [github](https://github.com/BooRuleDie/conf) page.
+

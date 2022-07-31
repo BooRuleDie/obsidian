@@ -3,7 +3,7 @@ It's a web security vulnerability that allows attacker to make users perform act
 
 # 3 Must Have for CSRF
 1. **A proper action that is special to user** (email change, password change, username change ...)
-2. **Cookie based session management.** (CSRF exists because browser put cookies automatically, if we don't have any cookie, then we can't talk about CSRF)
+2. **Cookie based session management.** (CSRF exists because browser put cookies automatically. If we don't have any cookie, then we can't talk about CSRF)
 3. **No unpredictable tokens or parameters** (This is why CSRF Token is being used to prevent CSRF, if there is a parameter that you can't predict to make the functionality work, then you can't craft a malicious website that'd perform CSRF)
 
 ### Same Origin Policy
@@ -106,3 +106,5 @@ The best way to prevent CSRF is using a CSRF Token. CSRF Token must be:
 # Lab: CSRF with broken Referer validation
 [Write-Up](https://medium.com/@booruledie/portswigger-labs-csrf-8-4865a07b4c33)
 
+# Mindmap
+![[CSRF 1.png]]
